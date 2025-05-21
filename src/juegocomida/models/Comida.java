@@ -16,28 +16,43 @@ import javax.swing.ImageIcon;
  */
 public class Comida extends Sprite implements Runnable{
 
-    private ImageObserver imageObserver;
+    private boolean activo = true;
+    private int limiteInferior;
     
-    
-    public Comida(int x, int y, int height, int width, String imagePath) {
+    public Comida(int x, int y, int height, int width, String imagePath, int limiteInferior) {
         super(x, y, height, width);
         this.image = new ImageIcon(getClass().getResource(imagePath));
+        this.limiteInferior = limiteInferior;
     }
+    
     @Override
-    public void run (){
-        caer();
+    public void run() {
+        while (activo) {
+            this.y += 1;
+            if (this.y > limiteInferior) {
+                detener();
+            }
+            try {
+                Thread.sleep(30);
+            } catch (InterruptedException e) {
+                break;
+            }
+        }
     }
     
     @Override
     public void paint(Graphics g) {
         Image image = this.image.getImage();
         g.setColor(color);
-        g.drawImage(image, x, y, width, height, color, imageObserver);
+        g.drawImage(image, x, y, width, height, color, null);
     }
     
-    
-    public void caer(){
-        y+=1; 
+    public void detener() {
+        this.activo = false;
+    }
+
+    public boolean isActivo() {
+        return activo;
     }
     
     

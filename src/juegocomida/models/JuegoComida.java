@@ -6,41 +6,30 @@ package juegocomida.models;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
  *
  * @author Nico
  */
-public class JuegoComida implements MouseListener{
+public class JuegoComida {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        JFrame ventana = new JFrame();
+        CampoDeComida campoComida = new CampoDeComida();
+        ventana.setResizable(false);      
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        
-        
-    }
+        ventana.add(campoComida);
+        ventana.pack();
+        ventana.setLocationRelativeTo(null);
+        ventana.setTitle("Campo de comida");
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-    
+        ventana.setVisible(true); 
     }
-
-    
-    
-    
-    @Override
-    public void mousePressed(MouseEvent e) {}
-    @Override
-    public void mouseReleased(MouseEvent e) {}
-    @Override
-    public void mouseEntered(MouseEvent e) {}
-    @Override
-    public void mouseExited(MouseEvent e) {}
-    
-    
     
 }

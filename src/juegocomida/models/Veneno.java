@@ -15,14 +15,14 @@ import javax.swing.ImageIcon;
  * @author Nico
  */
 public class Veneno extends Sprite  implements Runnable{
-
+  
+    private boolean activo = true;
+    private int limiteInferior;
     
-    private ImageObserver imageObserver;
-    
-    
-    public Veneno(int x, int y, int height, int width, String imagePath) {
+    public Veneno(int x, int y, int height, int width, String imagePath,int limiteInferior) {
         super(x, y, height, width);
         this.image = new ImageIcon(getClass().getResource(imagePath));
+        this.limiteInferior = limiteInferior;
     }
     
 
@@ -30,16 +30,30 @@ public class Veneno extends Sprite  implements Runnable{
     public void paint(Graphics g) {
         Image image = this.image.getImage();
         g.setColor(color);
-        g.drawImage(image, x, y, width, height, color, imageObserver);
+        g.drawImage(image, x, y, width, height, color, null);
     }
     
     @Override
-    public void run (){
-        caer();
+    public void run() {
+        while (activo) {
+            this.y += 1;
+            if (this.y > limiteInferior) {
+                detener();
+            }
+            try {
+                Thread.sleep(30);
+            } catch (InterruptedException e) {
+                break;
+            }
+        }
     }
-    public void caer(){
-        y+=1; 
+
+    public void detener() {
+        this.activo = false;
     }
-    
+
+    public boolean isActivo() {
+        return activo;
+    }
     
 }
